@@ -6,8 +6,6 @@ const app = express();
 const db = require("./server").db();
 const mongodb = require("mongodb");
 
-// MongoDB connect
-
 // 1 Kirish codlari
 app.use(express.static("public"));
 app.use(express.json());
