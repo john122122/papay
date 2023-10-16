@@ -3,7 +3,6 @@ const router = express.Router();
 const memberController = require("./controllers/memberController");
 
 // memberga dahildor routerlar
-router.get("/", memberController.home);
 router.post("/singup", memberController.singup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
