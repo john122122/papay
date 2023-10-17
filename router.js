@@ -1,20 +1,21 @@
 const express = require("express");
-const router = express.Router();
-const memberController = require("./controllers/memberController");
+const router = express.Router(); // expressni ichidan routerni olib chiqayopmiz.
+const memberController = require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
 
-// memberga dahildor routerlar
-router.post("/singup", memberController.singup);
-router.post("/login", memberController.login);
-router.get("/logout", memberController.logout);
+// memberga dahldor routerlar
+router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
+router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
+router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
 
 
-// boshqa routerlar
-router.get("/menu", function (req, res) {
-    res.send("You are in Menu page");
+// section routerlar
+router.get("/menu", (req, res) => {
+    res.send("Menu sahifadasiz");
 });
 
-router.get("/community", function (req, res) {
-    res.send("You are in Community page");
+router.get("/community", (req, res) => {
+    res.send("Jamiyat sahifadasiz");
 });
 
+//bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;
