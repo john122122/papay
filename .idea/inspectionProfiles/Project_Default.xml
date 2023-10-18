@@ -1,7 +1,7 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="ContinueOrBreakFromFinallyBlockJS" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="TYPO" />
+    <inspection_tool class="ContinueOrBreakFromFinallyBlockJS" enabled="false" level="TYPO" enabled_by_default="false" editorAttributes="TYPO" />
     <inspection_tool class="ExceptionCaughtLocallyJS" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="TYPO" />
     <inspection_tool class="ReturnFromFinallyBlockJS" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="TYPO" />
     <inspection_tool class="ThrowFromFinallyBlockJS" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="TYPO" />

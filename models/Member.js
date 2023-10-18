@@ -10,8 +10,11 @@ class Member {
     }
     async signupData(input) {
         try {
-            let result;
+            const salt = await bcrypt.genSalt();
+            input.mb_password = await bcrypt.hash(input.mb_password, salt);
             const new_member =  new this.memberModel(input);  // schema modeldan  class sifatida foydalanib uni ichida datani berib, yangi object hosil qilib
+
+            let result;
             try {
                 result = await new_member.save();    // u objectni ichida save methodan foydalangan holda memberni hosil qilamiz
             } catch (mongo_err) {
@@ -40,7 +43,10 @@ class Member {
 
             assert.ok(isMatch, Definer.auth_err4);
 
-            return await this.memberModel.findOne({ mb_nick: input.mb_nick }).exec();
+            return await this.memberModel.findOne({
+                mb_nick: input.mb_nick
+            })
+                .exec();
         } catch (err) {
             throw err;
         }

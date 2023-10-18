@@ -25,7 +25,7 @@ memberController.login = async (req, res) => {
             (result = await member.loginDate(data));
         res.json({ state: "succeed", data: result });
     } catch (err) {
-        // console.log("ERROR: cont/login", err.message);
+        console.log("ERROR: cont/login", err.message);
         res.json({ state: "failed", message: err.message });
     }
 };
