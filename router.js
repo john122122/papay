@@ -5,7 +5,7 @@ const memberController = require("./controllers/memberController"); // membercon
 // memberga dahldor routerlar
 router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
 router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
-router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
+// router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
 
 
 // section routerlar

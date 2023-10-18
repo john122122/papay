@@ -16,26 +16,16 @@ memberController.signup = async (req, res) => {
     }
 };
 
-// memberController.signup = async (req, res ) => {
-//     try {    // satandartlarni qurish:
-//         console.log("POST: cont/signup");    //routerdan kirib kelgan req turi.
-//         const data = req.body;               //req body qismidan malumot olamiz.
-//         const member = new Member();
-//         const  new_member = await member.signupData(data);   //ichida request body yuborilyabdi
-//         res.send("done");
-//         // res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
-//     } catch(err)  {
-//         console.log(`ERROR, cont/signup, ${err.message}`);
-//         // res.json({state: 'fail', message: err.message}); // standartdagi javob xato bulsa
-//     }
-// };
-
-memberController.login = (req, res ) => {
-    console.log("POST cont.login");
-    res.send("login page");
-};
-
-memberController.logout = (req, res ) => {
-    console.log("GET cont.logout");
-    res.send("logout page");
+memberController.login = async (req, res) => {
+    try {
+        console.log("POST: cont/login");
+        const data = req.body;
+        console.log("body::", req.body),
+            (member = new Member()),
+            (result = await member.loginDate(data));
+        res.json({ state: "succeed", data: result });
+    } catch (err) {
+        // console.log("ERROR: cont/login", err.message);
+        res.json({ state: "failed", message: err.message });
+    }
 };
