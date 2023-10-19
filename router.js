@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router(); // expressni ichidan routerni olib chiqayopmiz.
 const memberController = require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
 
+/******************************
+*           REST API          * // ZAMONAVIY USUL
+******************************/
+
 // memberga dahldor routerlar
 router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
 router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
