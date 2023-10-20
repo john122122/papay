@@ -1,18 +1,28 @@
-// turli xil metodlarni yuklashimiz mumkin.
 const Member = require("../models/Member");
 
-// restaurantController object methodlari orqali boglanayopti
 let restaurantController = module.exports;
+
+restaurantController.getMyRestaurantData = async (req, res) => {
+    try {
+        console.log("GET: cont/getMyRestaurantData");
+        // TODO: Get my restaurant products
+
+        res.render('restautant-menu');
+    } catch (err) {
+        console.log(`ERROR, cont/getMyRestaurantData, ${err.message}`);
+        res.json({ state: "fail", message: err.message });
+    }
+};
 
 restaurantController.getSignupMyRestaurant = async (req, res) => {
     try {
         console.log("GET: cont/getSignupMyRestaurant");
         res.render('signup');
     } catch (err) {
-        console.log(`ERROR, cont/signup, ${err.message}`);
-        res.json({ state: "failed", message: err.message });
+        console.log(`ERROR, cont/getSignupMyRestaurant, ${err.message}`);
+        res.json({ state: "fail", message: err.message });
     }
-}
+};
 
 restaurantController.signupProcess = async (req, res) => {
     try {
@@ -22,10 +32,12 @@ restaurantController.signupProcess = async (req, res) => {
         member = new Member(),
             new_member = await member.signupData(data);
 
-        res.json({ state: "succeed", data: new_member });
+        req.session.member = new_member;
+        res.redirect("/resto/products/menu");
+        // res.json({ state: "succeed", data: new_member });
     } catch (err) {
         console.log(`ERROR, cont/signup, ${err.message}`);
-        res.json({ state: "failed", message: err.message });
+        res.json({ state: "fail", message: err.message });
     }
 };
 
@@ -35,9 +47,9 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
         res.render('login-page');
     } catch (err) {
         console.log(`ERROR, cont/getLoginMyRestaurant, ${err.message}`);
-        res.json({ state: "failed", message: err.message });
+        res.json({ state: "fail", message: err.message });
     }
-}
+};
 
 restaurantController.loginProcess = async (req, res) => {
     try {
@@ -47,9 +59,21 @@ restaurantController.loginProcess = async (req, res) => {
             member = new Member(),
             result = await member.loginDate(data);
 
-        res.json({ state: "succeed", data: result });
+        req.session.member = result;
+        req.session.save(function () {
+            res.redirect("/resto/products/menu");
+        });
+      // res.json({ state: "succeed", data: result });
     } catch (err) {
         console.log(`ERROR: cont/login, ${err.message}`);
-        res.json({ state: "failed", message: err.message });
+        res.json({ state: "fail", message: err.message });
+    }
+};
+
+restaurantController.checkSessions = (req, res) => {
+    if(req.session?.member) {
+        res.json({state: 'succeed', data: req.session.member})
+    } else {
+        res.json({ state: "fail", message: "You are not authenticated" });
     }
 };
