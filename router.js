@@ -1,25 +1,24 @@
 const express = require("express");
-const router = express.Router(); // expressni ichidan routerni olib chiqayopmiz.
-const memberController = require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
+const router = express.Router();
+const memberController = require("./controllers/memberController");
 
-/******************************
-*           REST API          * // ZAMONAVIY USUL
-******************************/
+/**********************************
+ *          REST API              *
+ *********************************/
 
-// memberga dahldor routerlar
-router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
-router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
-// router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
+// memberga oid routerlar
 
+router.post("/signup", memberController.signup);
+router.post("/login", memberController.login);
+router.get("/logout", memberController.logout);
 
-// section routerlar
+// boshqa routerlar
 router.get("/menu", (req, res) => {
-    res.send("Menu sahifadasiz");
+    res.send("You are in Menu");
 });
 
 router.get("/community", (req, res) => {
-    res.send("Jamiyat sahifadasiz");
+    res.send("You are in Menu");
 });
 
-//bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;

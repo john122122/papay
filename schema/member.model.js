@@ -1,23 +1,27 @@
-const mongoose = require("mongoose"); // mongooseni chaqirib olayopmiz.
-const { member_type_enums, member_status_enums, ordernary_enums } = require("../lib/config");
+const mongoose = require("mongoose");                          // mongooseni chaqirib olayopmiz.
+const { 
+    member_type_enums, 
+    member_status_enums, 
+    ordernary_enums 
+} = require("../lib/config");
 
 
-const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yaratib olayopmiz.
-    // (EAR modulingdagi)  member buyich malumotlarni joylashtirib chiqamiz.
+const memberSchema = new mongoose.Schema({                     // (class deb nomladik) Schema yaratib olayopmiz.
+                                                               // (EAR modulingdagi)  member buyich malumotlarni joylashtirib chiqamiz.
     mb_nick: {
         type: String,
         required: true,
-        index: {unique: true, sparse: true}, // kimdir ishlatgan nickni qayta ishlatsa xatoli deb chiqarishi un
+        index: { unique: true, sparse: true },                   // kimdir ishlatgan nickni qayta ishlatsa xatoli deb chiqarishi un
     },
     mb_phone: {
         type: String,
         required: true,
-        index: {unique: true, sparse: true},
+        index: { unique: true, sparse: true },
     },
     mb_password: {
         type: String,
         required: false,
-        select: false, // keyinchalik bydefault qilib qaytarmasligi un .
+        select: false,                                           // keyinchalik bydefault qilib qaytarmasligi un .
     },
     mb_type: {
         type: String,
@@ -25,7 +29,7 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         default: "USER",
         enum: {
             values: member_type_enums,
-            message: "{VALUE} is not among permitted values" // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
+            message: "{VALUE} is not among permitted values"     // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
         }
     },
     mb_status : {
@@ -34,7 +38,7 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         default: "ACTIVE",
         enum: {
             values: member_status_enums,
-            message: "{VALUE} is not among permitted values" // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
+            message: "{VALUE} is not among permitted values"     // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
         }
     },
 
@@ -59,7 +63,7 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         required:false,
         default: "N",
         enum: {
-            values: ordernary_enums,   //enum bu oldindan belgilab olingan qiymat.
+            values: ordernary_enums,                                         //enum bu oldindan belgilab olingan qiymat.
             message: "{VALUE} is not among permitted values"
         }
     },
@@ -84,9 +88,9 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         default: 0
     },
 },
-    {timestamps: true}  // createdAt  va updatedAt oladi.
+    {timestamps: true}                                                       // createdAt  va updatedAt oladi.
 );
 
-// modelni shakillantirib oldik.
+                                                                             // modelni shakillantirib oldik.
 module.exports = mongoose.model("Member", memberSchema);
-// member.model.jsdan qaytgan narsa bu model....
+                                                                             // member.model.jsdan qaytgan narsa bu model....

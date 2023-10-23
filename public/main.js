@@ -1,1 +1,1 @@
-console.log('main.js ishga tuwdi');
+console.log("main.js ishga tuwdi");
