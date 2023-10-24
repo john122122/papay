@@ -4,7 +4,6 @@ const router_bssr = express.Router();
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
-
 /**********************************
  *          BSSR EJS              *
  *********************************/
