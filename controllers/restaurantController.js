@@ -7,7 +7,7 @@ restaurantController.getMyRestaurantData = async (req, res) => {
         console.log("GET: cont/getMyRestaurantData");
         // TODO: Get my restaurant products
 
-        res.render('restautant-menu');
+        res.render("restaurant-menu");
     } catch (err) {
         console.log(`ERROR, cont/getMyRestaurantData, ${err.message}`);
         res.json({ state: "failed", message: err.message });
@@ -66,7 +66,7 @@ restaurantController.loginProcess = async (req, res) => {
     }
 };
 
-restaurantController.loginProcess = (req, res) => {
+restaurantController.logoutProcess = (req, res) => {
     console.log("POST cont.logout");
     res.send("You are in Logout page");
 };
