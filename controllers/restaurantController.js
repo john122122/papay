@@ -39,7 +39,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 restaurantController.signupProcess = async (req, res) => {
     try {
         console.log("POST: cont/signup");
-        const data = req.body;
+        const data = req.body,
             member = new Member(),
             new_member = await member.signupData(data);
 
@@ -64,7 +64,7 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
 restaurantController.loginProcess = async (req, res) => {
     try {
         console.log("POST: cont/login");
-        const data = req.body;
+        const data = req.body,
             member = new Member(),
             result = await member.loginDate(data);
 
