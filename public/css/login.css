@@ -231,13 +231,15 @@ body {
 }
 
 .filebox label {
-    width: 137px;
+    position: relative;
+    padding: 15px;
+    width: 145px;
     height: 35px;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #6A7A99;
+    background: #50607a;
     border-radius: 0px, 8px, 8px, 0px;
 
     font-family: 'GT WAlsheim Pro';
@@ -251,22 +253,42 @@ body {
 .filebox .upload-name {
     position: relative;
     padding: 15px;
-    width: 65px;
+    width: 145px;
     height: 35px;
 
     display: flex;
-    background: #6A7A99;
+    background: #eaebee;
    
     border: 1px solid #dddddd;
     border-radius: 0px, 8px, 8px, 0px;
 }
 
 .thumbnail_desc {
+    height: 67px;
     margin-top: 0px;
     font-family: "GT Walsheim Pro";
     font-style: normal;
     font-weight: 400;
+    font: 85px;
+    
     font-size: 12px;
-    line-height: 12px;
+    line-height: 10px;
     color: #554bc3;
+}
+
+.sign_up_frame .signup_btn {
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+    height: 70px;
+    background: #ebf6ff;
+    border-radius: 10px;
+
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.02em;
+    color: #1474c8;
 }
