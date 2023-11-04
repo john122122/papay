@@ -178,28 +178,28 @@ body {
    border-radius: 8px;
 }
 
-.media-frame {
+.media_frame {
     position: relative;
-    margin-top: 5px;
-    width: 95px;
-    height: 50px;
-    border: 1px solid red;
+    margin-top: 15px;
+    width: 100%;
+    height: 250px;
+    /* border: 1px solid red; */
     display: flex;
     flex: row;
     justify-content: space-between;
 }
 
-.media-frame .upload_img_frame {
+.media_frame .upload_img_frame {
     position: relative;
-    width: 95px;
+    width: 275px;
     height: 93%;
     display: flex;
     border-radius: 15px;
 }
 
-.media-frame .upload_container {
+.media_frame .upload_container {
     position: relative;
-    margin-left: 12px;
+    margin-left: 30px;
     width: 75%;
     height: 100%;
     display: flex;
@@ -218,6 +218,7 @@ body {
 .filebox {
     margin-top: 25px;
     display: flex;
+    height: 55px;
 }
 
 .filebox input[type="file"]{
@@ -252,8 +253,8 @@ body {
 .filebox .upload-name {
     position: relative;
     padding: 20px;
-    width: 85px;
-    height: 55px;
+    width: 85%;
+    height: 100%;
 
     display: flex;
     background: #eaebee;
@@ -263,7 +264,7 @@ body {
 }
 
 .thumbnail_desc {
-    height: 67px;
+    height: 25px;
     /* margin-top: 0px; */
     font-family: "GT Walsheim Pro";
     font-style: normal;
@@ -273,3 +274,4 @@ body {
     line-height: 26px;
     color: #554bc3;
 }
+
