@@ -7,6 +7,7 @@ body {
     height: 100vh;
     background: #2c261e;
 }
+
 .group_name {
     position: absolute;
     z-index: 10000;
@@ -15,6 +16,7 @@ body {
     font-size: xx-large;
     font-family: monospace;
 }
+
 .animation-wrapper {
     width: 50%;
     padding-bottom: 50%;
