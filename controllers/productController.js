@@ -31,7 +31,7 @@ productController.addNewProduct = async (req, res) => {
         // assert.ok(result, Definer.product_err1);
 
         const html = `<script>
-                        alert(new dish is added successfully);
+                        alert('new dish is added successfully');
                         window.location.replace('resto/products/menu');
                      </script>`;
         res.end(html);

@@ -29,7 +29,7 @@ router_bssr.get("/products/menu", restaurantController.getMyRestaurantProduct);
 router_bssr.post(
     "/products/create",
     restaurantController.validateAuthRestaurant,
-    uploader_product.array("product_images", 10),
+    uploader_product.array("product_images", 5),
     productController.addNewProduct
 );
 router_bssr.post(
