@@ -1,5 +1,4 @@
 const express = require("express");
-// const app = express();
 const router_bssr = express.Router();
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
@@ -37,4 +36,9 @@ router_bssr.post(
     restaurantController.validateAuthRestaurant,
     productController.updateChosenProduct
 );
+
+router_bssr.get("/all-restaurant",
+    restaurantController.validateAdmin,
+    restaurantController.getAllRestaurants);
+
 module.exports = router_bssr;
