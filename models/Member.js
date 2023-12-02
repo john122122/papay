@@ -71,7 +71,7 @@ class Member {
 
             const result = await this.memberModel
             .aggregate([
-                { $match: { _id: id, mb_status: "ACTIVE" } },
+               { $match: { _id: id, mb_status: "ACTIVE" } },
                { $unset: "mb_password"},        // mb_passwordni olib bermaydi
         ])
          .exec();
@@ -88,7 +88,7 @@ class Member {
             view_ref_id = shapeIntoMongooseObjectId(view_ref_id); //view_ref_idni mongooDB ID ga aylantirayopmiz.
             const mb_id = shapeIntoMongooseObjectId(member._id);
           
-            const view = new view(mb_id);
+            const view = new View(mb_id);
              const isValid = await view.validateChosenTarget(view_ref_id, group_type);
             assert.ok(isValid, Definer.general_err2 );
 
