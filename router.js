@@ -18,7 +18,7 @@ router.get("/menu", (req, res) => {
 });
 
 router.get("/community", (req, res) => {
-    res.send("You are in Menu");
+    res.send("You are in Community");
 });
 
 module.exports = router;
