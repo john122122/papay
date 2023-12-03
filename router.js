@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const memberController = require("./controllers/memberController");
+const productController=require("./controllers/productController"); 
 
 /**********************************
  *          REST API              *
  *********************************/
 
-// memberga oid routerlar
+// Member related routers
 router.post("/sign-up", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
@@ -16,12 +17,9 @@ router.get(
     memberController.retrieveAuthMember,
     memberController.getChosenMember);
 
-// boshqa routerlar
-router.get("/menu", (req, res) => {
-    res.send("You are in Menu");
-});
-router.get("/community", (req, res) => {
-    res.send("You are in Community");
-});
+// Product related roters
+router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi.
+productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
+
 
 module.exports = router;

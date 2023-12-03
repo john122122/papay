@@ -14,7 +14,7 @@ class View {
       switch (group_type) { //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
         case "member":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
           result = await this.memberModel  //memberSchema modelni chaqirayopmiz.
-            .findById({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+            .findOne({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
