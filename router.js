@@ -18,8 +18,16 @@ router.get(
     memberController.getChosenMember);
 
 // Product related roters
-router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi.
-productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
+router.post(
+    "/products", 
+    memberController.retrieveAuthMember,     // bizni kimligimizni aniqlaydi.
+    productController.getAllProducts 
+);                                           //barcha restar mahsulotlarini bitta qilib qyozish.
 
+router.get(
+    "/products/:id",
+    memberController.retrieveAuthMember,
+    productController.getChosenProduct
+)
 
 module.exports = router;

@@ -1,28 +1,38 @@
 const ViewModel = require("../schema/view.model");
-const memberModel = require("../schema/member.model");
+const MemberModel = require("../schema/member.model");
+const ProductModel = require("../schema/product.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
-    this.memberModel = memberModel;
+    this.memberModel = MemberModel;
+    this.productModel = ProductModel;
     this.mb_id = mb_id;
   }
 
   async validateChosenTarget(view_ref_id, group_type) { 
     try {
       let result;
-      switch (group_type) { //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
-        case "member":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
-          result = await this.memberModel  //memberSchema modelni chaqirayopmiz.
-            .findOne({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+      switch (group_type) {                 //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
+        case "member":                      // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
+          result = await this.memberModel   //memberSchema modelni chaqirayopmiz.
+            .findOne({                      //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
             .exec();
-          break;     //result mavjud yoki  yuqligini qaytarishi kerak.
+          break;                            //result mavjud yoki  yuqligini qaytarishi kerak.
+          case "product":                      // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
+          result = await this.productModel   //memberSchema modelni chaqirayopmiz.
+            .findOne({                      //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+              _id: view_ref_id,
+              mb_status: "ACTIVE",
+            })
+            .exec();
+          break;                            //result mavjud yoki  yuqligini qaytarishi kerak.
       }
 
-      return !!result; // true va falesni qiymatini qaytaradigan syntax, resultni qiymatini tekshiradi.
+      return !!result;                      // true va falesni qiymatini qaytaradigan syntax, resultni qiymatini tekshiradi.
     } catch (err) {
       throw err;
     }
@@ -59,6 +69,16 @@ class View {
             )
             .exec();
           break;
+          case "product":
+            await this.productModel
+              .findByIdAndUpdate(
+                {
+                  _id: view_ref_id,
+                },
+                { $inc: { product_views: 1 } }
+              )
+              .exec();
+            break;
       }
       return true;
     } catch (err) {

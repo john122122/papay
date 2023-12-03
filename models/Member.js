@@ -59,6 +59,7 @@ class Member {
         .aggregate([
           { $match: { _id: id, mb_status: "ACTIVE" } },
           { $unset: "mb_password" },
+          // todo: check auth member liked the chosen member
         ])
         .exec();
 
@@ -79,7 +80,7 @@ class Member {
       assert.ok(isValid, Definer.general_err2);
 
       // logged user has seen target before
-      const doesExist = await view.checkViewExistence(view_ref_id);
+      const doesExist = await view.checkViewExistance(view_ref_id);
       console.log("doesExist : ", doesExist);
 
       if (!doesExist) {
