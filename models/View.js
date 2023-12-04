@@ -13,26 +13,25 @@ class View {
   async validateChosenTarget(view_ref_id, group_type) { 
     try {
       let result;
-      switch (group_type) {                 //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
-        case "member":                      // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
-          result = await this.memberModel   //memberSchema modelni chaqirayopmiz.
-            .findOne({                      //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+      switch (group_type) {                 
+        case "member":                      
+          result = await this.memberModel   
+            .findOne({                      
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
             .exec();
-          break;                            //result mavjud yoki  yuqligini qaytarishi kerak.
-          case "product":                      // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
-          result = await this.productModel   //memberSchema modelni chaqirayopmiz.
-            .findOne({                      //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+          break;                            
+          case "product":                   
+          result = await this.productModel   
+            .findOne({                    
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
             .exec();
-          break;                            //result mavjud yoki  yuqligini qaytarishi kerak.
+          break;                            
       }
-
-      return !!result;                      // true va falesni qiymatini qaytaradigan syntax, resultni qiymatini tekshiradi.
+      return !!result;                     
     } catch (err) {
       throw err;
     }

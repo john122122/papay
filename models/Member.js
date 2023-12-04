@@ -5,22 +5,25 @@ const MemberModel = require("../schema/member.model");
 const assert = require("assert");
 const bcrypt = require("bcryptjs");
 const View = require("./View");
+
 class Member {
   constructor() {
     this.memberModel = MemberModel; //(aslida mongodb= classi)
   }
+
   async signupData(input) {
     try {
       const salt = await bcrypt.genSalt();
       input.mb_password = await bcrypt.hash(input.mb_password, salt);
-
       const new_member = new this.memberModel(input);
+
       let result;
       try {
         result = await new_member.save();
       } catch (mongo_err) {
         throw new Error(Definer.auth_err1);
       }
+
       result.mb_password = "";
       return result;
     } catch (err) {
@@ -49,49 +52,51 @@ class Member {
 
   async getChosenMemberData(member, id) {
     try {
-      id = shapeIntoMongooseObjectId(id);
-      console.log("member: :", member);
-      if (member) {
-        await this.viewChosenItemByMember(member, id, "member");
-        // condition if not seen before
-      }
-      const result = await this.memberModel
+        id = shapeIntoMongooseObjectId(id);
+        console.log("member:::", member);
+
+            if(member) {
+            await this.viewChosenItemByMember(member, id, "member");
+        }
+
+        const result = await this.memberModel
         .aggregate([
-          { $match: { _id: id, mb_status: "ACTIVE" } },
-          { $unset: "mb_password" },
-          // todo: check auth member liked the chosen member
-        ])
-        .exec();
+           { $match: { _id: id, mb_status: "ACTIVE" } },
+           { $unset: "mb_password"},        // mb_passwordni olib bermaydi
+            // todo: check auth member liked the chosen target
+    ])
+     .exec();
 
       assert.ok(result, Definer.general_err2);
       return result[0];
     } catch (err) {
       throw err;
     }
-  }
-
-  async viewChosenItemByMember(member, view_ref_id, group_type) {
-    try {
-      view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
-      const mb_id = shapeIntoMongooseObjectId(member._id);
-      const view = new View(mb_id);
-      // validation needed
-      const isValid = await view.validateChosenTarget(view_ref_id, group_type);
-      assert.ok(isValid, Definer.general_err2);
-
-      // logged user has seen target before
-      const doesExist = await view.checkViewExistance(view_ref_id);
-      console.log("doesExist : ", doesExist);
-
-      if (!doesExist) {
-        const result = await view.insertMemberView(view_ref_id, group_type);
-        assert.ok(result, Definer.general_err1);
-      }
-      return true;
-    } catch (err) {
-      throw err;
-    }
-  }
 }
+
+async viewChosenItemByMember(member, view_ref_id, group_type) {
+    try {
+        view_ref_id = shapeIntoMongooseObjectId(view_ref_id); //view_ref_idni mongooDB ID ga aylantirayopmiz.
+        const mb_id = shapeIntoMongooseObjectId(member._id);
+      
+        const view = new View(mb_id);
+        const isValid = await view.validateChosenTarget(view_ref_id, group_type);
+        //assert.ok(isValid, Definer.general_err2 );
+
+        //logded user has seen target before
+        const doesExist = await view.checkViewExistance(view_ref_id);
+        console.log("doesExist:", doesExist);
+
+        if (!doesExist) { //mavjud bulmagan vaqtda 
+           const result = await view.insertMemberView(view_ref_id, group_type);
+           assert.ok(result, Definer.general_err1);
+        } 
+       return true;
+    }  catch (err) {
+       throw err;
+    }
+  } 
+}
+
 
 module.exports = Member;
