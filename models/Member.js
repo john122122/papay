@@ -63,7 +63,8 @@ class Member {
         .aggregate([
            { $match: { _id: id, mb_status: "ACTIVE" } },
            { $unset: "mb_password"},        // mb_passwordni olib bermaydi
-            // todo: check auth member liked the chosen target
+            
+          // todo: check auth member liked the chosen target
     ])
      .exec();
 

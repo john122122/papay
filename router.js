@@ -34,7 +34,7 @@ router.get(
 router.get(
     "/restaurants", 
     memberController.retrieveAuthMember,
-    restaurantController.getAllRestaurants
+    restaurantController.getRestaurants
 );
 
 module.exports = router;
