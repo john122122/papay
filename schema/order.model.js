@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const { order_status_enums } = require("../lib/config");
+const Schema = mongoose.Schema;
+
 
 const orderSchema = new mongoose.Schema(
   {
