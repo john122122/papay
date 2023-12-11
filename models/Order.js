@@ -134,7 +134,7 @@ class Order {
            order_id = shapeIntoMongooseObjectId(data.order_id),
            order_status = data.order_status.toUpperCase();
 
-           const result = await this.orderModel.findOneAndUpdate(
+          const result = await this.orderModel.findOneAndUpdate(
             { mb_id: mb_id, _id: order_id },
             { order_status: order_status },
             { runValidators: true, lean: true, returnDocument: "after" }
