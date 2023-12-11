@@ -1,12 +1,11 @@
-// turli xil metodlarni yuklashimiz mumkin
-const Member=require("../models/Member");
-// memberController object methodlari orqali boglanayopti
-let memberController=module.exports;
-const jwt = require('jsonwebtoken');
 const assert = require("assert");
+const Member = require("../models/Member");
 const Definer = require("../lib/mistake");
+jwt = require("jsonwebtoken");
 
-memberController.signup=async (req, res) => {
+let memberController = module.exports;
+
+memberController.signup = async (req, res) => {
     try {    // satandartlarni qurish:
         console.log("POST: cont/signup");    //routerdan kirib kelgan req turi.
         const data=req.body,               //req body qismidan malumot olamiz.

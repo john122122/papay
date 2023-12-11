@@ -37,7 +37,6 @@ router.get(
     memberController.retrieveAuthMember,
     restaurantController.getRestaurants
 );
-
 router.get(
     "/restaurants/:id",
     memberController.retrieveAuthMember,
@@ -45,7 +44,6 @@ router.get(
 );
 
 // Order related routers
-
 router.post(
     "/orders/create", 
     memberController.retrieveAuthMember, 
@@ -56,6 +54,11 @@ router.get(
     memberController.retrieveAuthMember,
     orderController.getMyOders
 );
+// router.post(
+//     "/orders/edit",
+//     memberController.retrieveAuthMember,
+//     orderController.editChosenOrder
+// );
 
 
 module.exports = router;
