@@ -138,8 +138,8 @@ class Order {
             { mb_id: mb_id, _id: order_id },
             { order_status: order_status },
             { runValidators: true, lean: true, returnDocument: "after" }
-           );
-           console.log(result);
+          );
+          //console.log(result);
 
           assert.ok(result, Definer.order_err3);
           return result;
