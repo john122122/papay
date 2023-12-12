@@ -71,8 +71,13 @@ router.post(
 );
 router.post(
     "/community/create",
-    uploader_community.single("community_image"),
+    memberController.retrieveAuthMember,
     communityController.createArticle
+);
+router.get(
+    "/community/articles",
+    memberController.retrieveAuthMember,
+    communityController.getMemberArticles
 );
 
 
