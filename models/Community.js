@@ -15,9 +15,12 @@ const {
   
     async createArticleData(member, data) {
       try {
+        console.log("createArticleData is working ")
         data.mb_id = shapeIntoMongooseObjectId(member._id);
+        console.log("createArticleData is working ")
         const new_article = await this.saveArticleData(data);
-        // console.log("new_article:::", new_article);
+        console.log("createArticleData is working ")
+        console.log("new_article:::", new_article);
         return new_article;
       } catch (err) {
         throw err;
@@ -66,4 +69,6 @@ const {
         throw err;
       }
     }
-}
+};
+
+module.exports = Community;

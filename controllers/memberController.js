@@ -80,7 +80,9 @@ memberController.checkMyAuthentication = (req, res) => {
         let token = req.cookies["access_token"];
         // console.log("token:::", token);
 
-        const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+        const member = token ? jwt.verify(
+            token, process.env.SECRET_TOKEN
+        ) : null;
         assert.ok(member, Definer.auth_err2);
 
         res.json({ state: "success", data: member }); 
