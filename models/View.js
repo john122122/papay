@@ -1,42 +1,54 @@
-const ViewModel = require("../schema/view.model");
 const MemberModel = require("../schema/member.model");
 const ProductModel = require("../schema/product.model");
+const ViewModel = require("../schema/view.model");
+const BoArticleModel = require("../schema/bo_article.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
     this.memberModel = MemberModel;
     this.productModel = ProductModel;
+    this.boArticleModel = BoArticleModel;
     this.mb_id = mb_id;
   }
 
-  async validateChosenTarget(view_ref_id, group_type) { 
+  async validateChosenTarget(view_ref_id, group_type) {
     try {
       let result;
-      switch (group_type) {                 
-        case "member":                      
-          result = await this.memberModel   
-            .findOne({                      
+      switch (group_type) {
+        case "member":
+          result = await this.memberModel
+            .findOne({
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
             .exec();
-          break;                            
-          case "product":                   
-          result = await this.productModel   
-            .findOne({                    
+          break;
+
+        case "product":
+          result = await this.productModel
+            .findOne({
               _id: view_ref_id,
-              mb_status: "ACTIVE",
+              product_status: "PROCESS",
             })
             .exec();
-          break;                            
+          break;
+
+        case "community":
+          result = await this.boArticleModel
+            .findOne({
+              _id: view_ref_id,
+              art_status: "active",
+            })
+            .exec();
+          break;
       }
-      return !!result;                     
+
+      return !!result;
     } catch (err) {
       throw err;
     }
   }
-
   async insertMemberView(view_ref_id, group_type) {
     try {
       const new_view = new this.viewModel({
@@ -46,9 +58,8 @@ class View {
       });
       const result = await new_view.save();
 
-      // target items view sonini bittaga oshiramiz
+      //   target items view sonini bittaga oshiramiz
       await this.modifyItemViewCounts(view_ref_id, group_type);
-
       return result;
     } catch (err) {
       throw err;
@@ -68,16 +79,28 @@ class View {
             )
             .exec();
           break;
-          case "product":
-            await this.productModel
-              .findByIdAndUpdate(
-                {
-                  _id: view_ref_id,
-                },
-                { $inc: { product_views: 1 } }
-              )
-              .exec();
-            break;
+
+        case "product":
+          await this.productModel
+            .findByIdAndUpdate(
+              {
+                _id: view_ref_id,
+              },
+              { $inc: { product_views: 1 } }
+            )
+            .exec();
+          break;
+
+        case "community":
+          await this.boArticleModel
+            .findByIdAndUpdate(
+              {
+                _id: view_ref_id,
+              },
+              { $inc: { art_views: 1 } }
+            )
+            .exec();
+          break;
       }
       return true;
     } catch (err) {
@@ -85,13 +108,10 @@ class View {
     }
   }
 
-  async checkViewExistance(view_ref_id) {
+  async checkViewExistence(view_ref_id) {
     try {
       const view = await this.viewModel
-        .findOne({
-          mb_id: this.mb_id,
-          view_ref_id: view_ref_id,
-        })
+        .findOne({ mb_id: this.mb_id, view_ref_id: view_ref_id })
         .exec();
       return view ? true : false;
     } catch (err) {
