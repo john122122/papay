@@ -102,7 +102,7 @@ router.post(
     memberController.retrieveAuthMember,
     followController.unsubscribe
 );
-router.post(
+router.get(
     "/follow/followwings",
     followController.getMemberFollowings
 );
