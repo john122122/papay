@@ -98,17 +98,18 @@ class Follow {
   }
 
   async getMemberFollowingsData(inquiry) {
-    try { 
-       console.log("query:", inquiry);
-       const subscriber_id = shapeIntoMongooseObjectId(inquiry.mb_id),
-          page = inquiry.page * 1,
-          limit = inquiry.limit * 1;
+    try {
+      // console.log("query>>>", inquiry);
+      const subscriber_id = shapeIntoMongooseObjectId(inquiry.mb_id);
+
+      const page = inquiry.page * 1;
+      const limit = inquiry.limit * 1;
 
       const result = await this.followModel
         .aggregate([
           { $match: { subscriber_id: subscriber_id } },
           { $sort: { createdAt: -1 } },
-          { $skip: (page -1) * limit },
+          { $skip: (page - 1) * limit },
           { $limit: limit },
           {
             $lookup: {
@@ -121,13 +122,46 @@ class Follow {
           { $unwind: "$follow_member_data" },
         ])
         .exec();
-      
       assert.ok(result, Definer.follow_err3);
+
       return result;
     } catch (err) {
       throw err;
     }
   }
-}
+
+  async getMemberFollowersData (member, inquiry) {
+    try {
+      const follow_id = shapeIntoMongooseObjectId(inquiry.mb_id),
+         page = inquiry.page * 1, 
+         limit = inquiry.limit * 1; 
+
+        let aggregateQuery = [
+          { $match: { follow_id: follow_id } },
+          { $sort: { createdAt: -1 } },
+          { $skip: (page -1) * limit },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: "members",
+              localField: "subscriber_id",
+              foreignField: "_id",
+              as: "subscriber_member_data",
+            },
+          },
+          { $unwind: "$subscriber_member_data" }, // arrayning ichidagi objectni arraydan chiqarib, arrayni tushirib qoldiryapmam!, buni ichidagi elementnni maunt qilyapman.
+        ];
+        
+        // following followed back to subscriber
+
+        const result = await this.followModel.aggregate(aggregateQuery).exec();
+
+        assert.ok(result, Definer.follow_err3);
+          return result;
+        } catch (err) {
+          throw err;
+        }
+     }
+ }
 
 module.exports = Follow; 
