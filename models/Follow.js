@@ -1,9 +1,9 @@
-const { shapeIntoMongooseObjectId } = require("../lib/config");
-const Definer = require("../lib/mistake");
 const assert = require("assert");
-
+const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");
+const Definer = require("../lib/mistake");
 const FollowModel = require("../schema/follow.model");
 const MemberModel = require("../schema/member.model");
+const { lookup } = require("dns");
 
 class Follow {
   constructor() {
@@ -153,6 +153,9 @@ class Follow {
         ];
         
         // following followed back to subscriber
+        if (member && member._id === inquiry.mb_id) {
+          aggregateQuery.push(lookup_auth_member_following9(follow_id));
+        }
 
         const result = await this.followModel.aggregate(aggregateQuery).exec();
 
