@@ -21,7 +21,13 @@ router.get("/check-me", memberController.checkMyAuthentication);
 router.get(
     "/member/:id", 
     memberController.retrieveAuthMember,
-    memberController.getChosenMember);
+    memberController.getChosenMember
+);
+router.post(
+    "/member-liken",
+    memberController.retrieveAuthMember,
+    memberController.likenMemberChosen
+);
 
 // Product related roters
 router.post(
