@@ -97,9 +97,7 @@ memberController.getChosenMember = async (req, res) => {
     const id = req.params.id;
 
     const member = new Member();
-    const result = await member.getChosenMemberData(req.member, id); //1chi argument(req.member) kimbu req 1chi amalga oshirayopti, 
-                                                                     // 2chi argument (id) bu kimni datasini kurmoqchimiz. 
-
+    const result = await member.getChosenMemberData(req.member, id); 
     res.json({ state: "success", data: result }); 
   } catch (err) {
     console.log(`ERROR, cont/getChosenMember, ${err.message}`);
