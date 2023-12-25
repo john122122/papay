@@ -6,8 +6,8 @@ const {
 } = require("../lib/config");
 
 
-const memberSchema = new mongoose.Schema({                     // (class deb nomladik) Schema yaratib olayopmiz.
-                                                               // (EAR modulingdagi)  member buyich malumotlarni joylashtirib chiqamiz.
+const memberSchema = new mongoose.Schema(
+    {                    
     mb_nick: {
         type: String,
         required: true,
