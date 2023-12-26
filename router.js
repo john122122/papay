@@ -14,7 +14,7 @@ const uploader_member = require("./utils/upload-multer")("members");
  *********************************/
 
 // Member related routers
-router.post("/sign-up", memberController.signup);
+router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
 router.get("/check-me", memberController.checkMyAuthentication);
