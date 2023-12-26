@@ -17,7 +17,7 @@ memberController.signup = async (req, res) => {
             const token = memberController.createToken(new_member);  //return bulgan valueni tookenga tenglashtiirb olayopmiz.
             res.cookie('access_token', token, {  //cookiesga => acsestokenni va undan hosil bulgan tokenni va
                 maxAge: 6 * 3600 * 1000,         // token bn teng bulgan vaqtni olayopman.
-                httpOnly: true,   // hardoim true bulishi lozim
+                httpOnly: false,   // hardoim true bulishi lozim
             });
 
         res.json({state: 'success', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
@@ -38,7 +38,7 @@ memberController.login = async (req, res) => {
             // console.log("token:::", token);
             res.cookie('access_token', token, {  //cookiesga => acsestokenni va undan hosil bulgan tokenni va
                 maxAge: 6 * 3600 * 1000,         // token bn teng bulgan vaqtni olayopman.
-                httpOnly: true,   // hardoim true bulishi lozim
+                httpOnly: false,   // hardoim true bulishi lozim
             });
 
 
