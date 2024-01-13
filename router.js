@@ -28,6 +28,12 @@ router.post(
     memberController.retrieveAuthMember,
     memberController.likenMemberChosen
 );
+router.post(
+    "/member/update",
+    memberController.retrieveAuthMember,
+    uploader_member.single("mb_image"),
+    memberController.updateMember
+);
 
 // Product related roters
 router.post(
