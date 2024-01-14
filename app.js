@@ -1,4 +1,5 @@
 const express = require("express");
+const http = require("http");
 const app = express();
 const router = require("./router.js");
 const router_bssr = require("./router_bssr.js");
@@ -49,4 +50,38 @@ app.set("view engine", "ejs");
 app.use("/resto", router_bssr); //traditional usul
 app.use("/", router);            // react usul
 
-module.exports = app;
+const server = http.createServer(app);
+
+/** SOCKET.IO BACKEND SERVER */
+const io = require("socket.io")(server, {
+    serverClient: false,
+    origins: "*:*",
+    transport: ["websocket", "xhr-polling"],
+});
+
+let online_users = 0;
+io.on("connection", function (socket) {
+    online_users++;
+    console.log("New user, total:", online_users);
+    socket.emit("greetMsg", { text: "welcome" });
+    io.emit("infoMsg", { total: online_users });
+
+    socket.on("disconnect", function () {
+        online_users--;
+        socket.broadcast.emit("infoMsg", { total: online_users });
+        console.log("client disconnected, total:", online_users);
+    });
+
+    socket.on('createMsg', function (data) {
+        console.log(data);
+        io.emit("newMsg", data);
+    })
+
+    // socket.emit()
+    // socket.broadcast.emit()
+    // io.emit()
+});
+
+/** SOCKET.IO BACKEND SERVER */
+
+module.exports = server;
